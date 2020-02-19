@@ -1,21 +1,27 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import Game from "./Game";
+import App from "./App";
+
+test("renders the App Bar", () => {
+  const { getByText } = render(<App />);
+  const title = getByText("Govini Tic Tac Toe", { exact: true });
+  expect(title).toBeInTheDocument();
+});
 
 test("renders the title", () => {
-  const { getByText } = render(<Game />);
+  const { getByText } = render(<App />);
   const title = getByText("Tic Tac Toe", { exact: true });
   expect(title).toBeInTheDocument();
 });
 
-test("renders Player 1 at game start", () => {
-  const { getByText } = render(<Game />);
+test("renders Player 1 at App start", () => {
+  const { getByText } = render(<App />);
   const currentPlayer = getByText("Player 1", { exact: true });
   expect(currentPlayer).toBeInTheDocument();
 });
 
 test("renders Player 2 after Player 1's turn", () => {
-  const { container, getByText } = render(<Game />);
+  const { container, getByText } = render(<App />);
   const button = container.querySelector("button");
 
   fireEvent.click(button);
@@ -24,7 +30,7 @@ test("renders Player 2 after Player 1's turn", () => {
 });
 
 test("renders go back to start button after a move", () => {
-  const { container, getByText } = render(<Game />);
+  const { container, getByText } = render(<App />);
   const button = container.querySelector("button");
 
   fireEvent.click(button);
@@ -34,7 +40,7 @@ test("renders go back to start button after a move", () => {
 });
 
 test("renders an X in the square for Player 1", () => {
-  const { container, getByText } = render(<Game />);
+  const { container, getByText } = render(<App />);
   const button = container.querySelector("button");
 
   fireEvent.click(button);
@@ -44,7 +50,7 @@ test("renders an X in the square for Player 1", () => {
 });
 
 test("renders an O in the square for Player 2", () => {
-  const { getByTestId, getByText } = render(<Game />);
+  const { getByTestId, getByText } = render(<App />);
   const buttons = [getByTestId("square-0"), getByTestId("square-1")];
 
   fireEvent.click(buttons[0]);
@@ -55,7 +61,7 @@ test("renders an O in the square for Player 2", () => {
 });
 
 test("renders the move history", () => {
-  const { container, getByText } = render(<Game />);
+  const { container, getByText } = render(<App />);
   const button = container.querySelector("button");
 
   fireEvent.click(button);
@@ -65,7 +71,7 @@ test("renders the move history", () => {
 });
 
 test("renders winner when a player wins", () => {
-  const { getByTestId, getByText } = render(<Game />);
+  const { getByTestId, getByText } = render(<App />);
   const buttons = [
     getByTestId("square-0"),
     getByTestId("square-1"),
@@ -85,7 +91,7 @@ test("renders winner when a player wins", () => {
 });
 
 test("renders Draw when it is a draw", () => {
-  const { getByTestId, getByText } = render(<Game />);
+  const { getByTestId, getByText } = render(<App />);
   const buttons = [
     getByTestId("square-0"),
     getByTestId("square-1"),
@@ -115,7 +121,7 @@ test("renders Draw when it is a draw", () => {
 });
 
 test("renders New Game button when a player wins", () => {
-  const { getByTestId, getByText } = render(<Game />);
+  const { getByTestId, getByText } = render(<App />);
   const buttons = [
     getByTestId("square-0"),
     getByTestId("square-1"),
@@ -135,7 +141,7 @@ test("renders New Game button when a player wins", () => {
 });
 
 test("renders New Game button when it is a draw", () => {
-  const { getByTestId, getByText } = render(<Game />);
+  const { getByTestId, getByText } = render(<App />);
   const buttons = [
     getByTestId("square-0"),
     getByTestId("square-1"),
